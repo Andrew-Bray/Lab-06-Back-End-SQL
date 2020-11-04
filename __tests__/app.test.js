@@ -127,33 +127,76 @@ describe('app routes', () => {
     //TEST - remove a bee -DELETE
     test('deletes Bee with id of 3', async () => {
 
-      const expectation = [
-        {
-          id: 1,
-          name: 'italians',
-          winterization: 2,
-          domesticated: true,
-          characteristics: 'golden colors, larger winter cluster, and super honey production',
-          owner_id: 1
+      // const expectation = [
+      //   {
+      //     id: 1,
+      //     name: 'italians',
+      //     winterization: 2,
+      //     domesticated: true,
+      //     characteristics: 'golden colors, larger winter cluster, and super honey production',
+      //     owner_id: 1
 
-        },
-        {
-          id: 2,
-          name: 'carniolans',
-          winterization: 4,
-          domesticated: true,
-          characteristics: 'browner colors, small winter cluster, and nice honey production',
-          owner_id: 1
-        }
-      ];
+      //   },
+      //   {
+      //     id: 2,
+      //     name: 'carniolans',
+      //     winterization: 4,
+      //     domesticated: true,
+      //     characteristics: 'browner colors, small winter cluster, and nice honey production',
+      //     owner_id: 1
+      //   }
+      // ];
+
+      const deletedItem =
+      {
+        id: 3,
+        name: 'africanized',
+        winterization: 1,
+        domesticated: false,
+        characteristics: 'these guys are assholes. But boy do they make a lot of honey',
+        owner_id: 1
+      }
+        ;
 
       const data = await fakeRequest(app)
         .delete('/bees/3')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+      // const allBees = await fakeRequest(app)
+      //   .get('/bees')
+      //   .expect('Content-Type', /json/)
+      //   .expect(200);
+
+
+      expect(data.body).toEqual(deletedItem);
+      // expect(allBees.body.length).toEqual(2);
     });
 
+    //PUT test
+    test('replaces Bee with id of 2', async () => {
+
+
+      const replacedItem =
+      {
+        id: 2,
+        name: 'bumble',
+        winterization: 1,
+        domesticated: false,
+        characteristics: 'so cute',
+        owner_id: 1
+      }
+        ;
+
+      const data = await fakeRequest(app)
+        .put('/bees/2')
+        .send(replacedItem)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+
+      expect(data.body).toEqual(replacedItem);
+      // expect(allBees.body.length).toEqual(2);
+    });
   });
 });
