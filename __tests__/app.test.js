@@ -31,26 +31,34 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns bees', async () => {
+    //TEST GETs ALL OF THE BEES
+    test('returns all the bees', async () => {
 
       const expectation = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          id: 1,
+          name: 'italians',
+          winterization: 2,
+          domesticated: true,
+          characteristics: 'golden colors, larger winter cluster, and super honey production',
+          owner_id: 1
+
         },
         {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
+          id: 2,
+          name: 'carniolans',
+          winterization: 4,
+          domesticated: true,
+          characteristics: 'browner colors, small winter cluster, and nice honey production',
+          owner_id: 1
         },
         {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
+          id: 3,
+          name: 'africanized',
+          winterization: 1,
+          domesticated: false,
+          characteristics: 'these guys are assholes. But boy do they make a lot of honey',
+          owner_id: 1
         }
       ];
 
@@ -61,4 +69,134 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    // GETs a single bee
+    test('resturns a single bee variety', async () => {
+      const expectation = {
+        id: 1,
+        name: 'italians',
+        winterization: 2,
+        domesticated: true,
+        characteristics: 'golden colors, larger winter cluster, and super honey production',
+        owner_id: 1
+      };
+
+      const data = await fakeRequest(app)
+        .get('/bees/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    // ADDs a bee to the DB and RETURNS it -POST
+    test('adds a bee to the DB', async () => {
+      const expectation = {
+        id: 4,
+        name: 'russian',
+        winterization: 5,
+        domesticated: true,
+        characteristics: 'dark brown, smaller honey producers, but excellent survivors',
+        owner_id: 1
+      };
+
+      const data = await fakeRequest(app)
+        .post('/bees')
+        .send({
+          name: 'russian',
+          winterization: 5,
+          domesticated: true,
+          characteristics: 'dark brown, smaller honey producers, but excellent survivors',
+          owner_id: 1
+        })
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const allBees = await fakeRequest(app)
+        .get('/bees')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+      expect(allBees.body.length).toEqual(4);
+    });
+
+    //TEST REplace a bee with a new one - PUT
+
+
+    //TEST - remove a bee -DELETE
+    test('deletes Bee with id of 3', async () => {
+
+      // const expectation = [
+      //   {
+      //     id: 1,
+      //     name: 'italians',
+      //     winterization: 2,
+      //     domesticated: true,
+      //     characteristics: 'golden colors, larger winter cluster, and super honey production',
+      //     owner_id: 1
+
+      //   },
+      //   {
+      //     id: 2,
+      //     name: 'carniolans',
+      //     winterization: 4,
+      //     domesticated: true,
+      //     characteristics: 'browner colors, small winter cluster, and nice honey production',
+      //     owner_id: 1
+      //   }
+      // ];
+
+      const deletedItem =
+      {
+        id: 3,
+        name: 'africanized',
+        winterization: 1,
+        domesticated: false,
+        characteristics: 'these guys are assholes. But boy do they make a lot of honey',
+        owner_id: 1
+      }
+        ;
+
+      const data = await fakeRequest(app)
+        .delete('/bees/3')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      // const allBees = await fakeRequest(app)
+      //   .get('/bees')
+      //   .expect('Content-Type', /json/)
+      //   .expect(200);
+
+
+      expect(data.body).toEqual(deletedItem);
+      // expect(allBees.body.length).toEqual(2);
+    });
+
+    //PUT test
+    test('replaces Bee with id of 2', async () => {
+
+
+      const replacedItem =
+      {
+        id: 2,
+        name: 'bumble',
+        winterization: 1,
+        domesticated: false,
+        characteristics: 'so cute',
+        owner_id: 1
+      }
+        ;
+
+      const data = await fakeRequest(app)
+        .put('/bees/2')
+        .send(replacedItem)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+
+      expect(data.body).toEqual(replacedItem);
+      // expect(allBees.body.length).toEqual(2);
+    });
   });
+});
