@@ -59,6 +59,14 @@ describe('app routes', () => {
           domesticated: false,
           characteristics: 'these guys are assholes. But boy do they make a lot of honey',
           owner_id: 1
+        },
+        {
+          id: 4,
+          name: 'russian',
+          winterization: 5,
+          domesticated: true,
+          characteristics: 'dark brown, smaller honey producers, but excellent survivors',
+          owner_id: 1
         }
       ];
 
@@ -92,7 +100,7 @@ describe('app routes', () => {
     // ADDs a bee to the DB and RETURNS it -POST
     test('adds a bee to the DB', async () => {
       const expectation = {
-        id: 4,
+        id: 5,
         name: 'russian',
         winterization: 5,
         domesticated: true,
@@ -118,7 +126,7 @@ describe('app routes', () => {
         .expect(200);
 
       expect(data.body).toEqual(expectation);
-      expect(allBees.body.length).toEqual(4);
+      expect(allBees.body.length).toEqual(5);
     });
 
     //TEST REplace a bee with a new one - PUT
