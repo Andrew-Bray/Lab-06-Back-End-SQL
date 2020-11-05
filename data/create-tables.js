@@ -17,9 +17,14 @@ async function run() {
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );           
+                CREATE TABLE friends (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(256) NOT NULL,
+                    friendliness INTEGER NOT NULL
+                );
                 CREATE TABLE bees (
                     id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(512) NOT NULL,
+                    name_id INTEGER NOT NULL REFERENCES friends(id),
                     winterization INTEGER NOT NULL,
                     domesticated BOOLEAN NOT NULL,
                     characteristics VARCHAR(256) NOT NULL,
