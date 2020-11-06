@@ -36,37 +36,36 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          id: 1,
-          name: 'italians',
-          winterization: 2,
-          domesticated: true,
-          characteristics: 'golden colors, larger winter cluster, and super honey production',
-          owner_id: 1
-
+          'id': 4,
+          'winterization': 5,
+          'domesticated': true,
+          'characteristics': 'dark brown, smaller honey producers, but excellent survivors',
+          'friendliness': 3,
+          'name': 'russian'
         },
         {
-          id: 2,
-          name: 'carniolans',
-          winterization: 4,
-          domesticated: true,
-          characteristics: 'browner colors, small winter cluster, and nice honey production',
-          owner_id: 1
+          'id': 1,
+          'winterization': 2,
+          'domesticated': true,
+          'characteristics': 'golden colors, larger winter cluster, and super honey production',
+          'friendliness': 5,
+          'name': 'italians'
         },
         {
-          id: 3,
-          name: 'africanized',
-          winterization: 1,
-          domesticated: false,
-          characteristics: 'these guys are assholes. But boy do they make a lot of honey',
-          owner_id: 1
+          'id': 2,
+          'winterization': 4,
+          'domesticated': true,
+          'characteristics': 'browner colors, small winter cluster, and nice honey production',
+          'friendliness': 4,
+          'name': 'carniolans'
         },
         {
-          id: 4,
-          name: 'russian',
-          winterization: 5,
-          domesticated: true,
-          characteristics: 'dark brown, smaller honey producers, but excellent survivors',
-          owner_id: 1
+          'id': 3,
+          'winterization': 1,
+          'domesticated': false,
+          'characteristics': 'these guys are assholes. But boy do they make a lot of honey',
+          'friendliness': 0,
+          'name': 'africanized'
         }
       ];
 
@@ -101,7 +100,7 @@ describe('app routes', () => {
     test('adds a bee to the DB', async () => {
       const expectation = {
         id: 5,
-        name: 'russian',
+        name_id: 4,
         winterization: 5,
         domesticated: true,
         characteristics: 'dark brown, smaller honey producers, but excellent survivors',
@@ -111,7 +110,7 @@ describe('app routes', () => {
       const data = await fakeRequest(app)
         .post('/bees')
         .send({
-          name: 'russian',
+          name_id: 4,
           winterization: 5,
           domesticated: true,
           characteristics: 'dark brown, smaller honey producers, but excellent survivors',
@@ -129,36 +128,15 @@ describe('app routes', () => {
       expect(allBees.body.length).toEqual(5);
     });
 
-    //TEST REplace a bee with a new one - PUT
-
 
     //TEST - remove a bee -DELETE
     test('deletes Bee with id of 3', async () => {
 
-      // const expectation = [
-      //   {
-      //     id: 1,
-      //     name: 'italians',
-      //     winterization: 2,
-      //     domesticated: true,
-      //     characteristics: 'golden colors, larger winter cluster, and super honey production',
-      //     owner_id: 1
-
-      //   },
-      //   {
-      //     id: 2,
-      //     name: 'carniolans',
-      //     winterization: 4,
-      //     domesticated: true,
-      //     characteristics: 'browner colors, small winter cluster, and nice honey production',
-      //     owner_id: 1
-      //   }
-      // ];
 
       const deletedItem =
       {
         id: 3,
-        name: 'africanized',
+        name_id: 3,
         winterization: 1,
         domesticated: false,
         characteristics: 'these guys are assholes. But boy do they make a lot of honey',
@@ -170,11 +148,6 @@ describe('app routes', () => {
         .delete('/bees/3')
         .expect('Content-Type', /json/)
         .expect(200);
-
-      // const allBees = await fakeRequest(app)
-      //   .get('/bees')
-      //   .expect('Content-Type', /json/)
-      //   .expect(200);
 
 
       expect(data.body).toEqual(deletedItem);
@@ -188,7 +161,7 @@ describe('app routes', () => {
       const replacedItem =
       {
         id: 2,
-        name: 'bumble',
+        name_id: 2,
         winterization: 1,
         domesticated: false,
         characteristics: 'so cute',
