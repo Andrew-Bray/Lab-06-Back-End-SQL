@@ -79,7 +79,7 @@ describe('app routes', () => {
     });
 
     // GETs a single bee
-    test('resturns a single bee variety', async () => {
+    skip('resturns a single bee variety', async () => {
       const expectation = {
         id: 1,
         name: 'italians',
@@ -98,7 +98,7 @@ describe('app routes', () => {
     });
 
     // ADDs a bee to the DB and RETURNS it -POST
-    test('adds a bee to the DB', async () => {
+    skip('adds a bee to the DB', async () => {
       const expectation = {
         id: 5,
         name: 'russian',
@@ -133,27 +133,8 @@ describe('app routes', () => {
 
 
     //TEST - remove a bee -DELETE
-    test('deletes Bee with id of 3', async () => {
+    skip('deletes Bee with id of 3', async () => {
 
-      // const expectation = [
-      //   {
-      //     id: 1,
-      //     name: 'italians',
-      //     winterization: 2,
-      //     domesticated: true,
-      //     characteristics: 'golden colors, larger winter cluster, and super honey production',
-      //     owner_id: 1
-
-      //   },
-      //   {
-      //     id: 2,
-      //     name: 'carniolans',
-      //     winterization: 4,
-      //     domesticated: true,
-      //     characteristics: 'browner colors, small winter cluster, and nice honey production',
-      //     owner_id: 1
-      //   }
-      // ];
 
       const deletedItem =
       {
@@ -182,7 +163,7 @@ describe('app routes', () => {
     });
 
     //PUT test
-    test('replaces Bee with id of 2', async () => {
+    skip('replaces Bee with id of 2', async () => {
 
 
       const replacedItem =
